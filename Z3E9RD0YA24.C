@@ -1,11 +1,9 @@
 #include <stdio.h>
-#include <string.h>
 
-void decode_and_print(const char *encoded_str) {
-    char decoded_str[45];
-    int len = strlen(encoded_str);
+void decode_and_print(const unsigned char *encoded_str, int len) {
+    char decoded_str[65];
     for (int i = 0; i < len; i++) {
-        decoded_str[i] = encoded_str[i] ^ 0x5A; // XOR with 0x5A to obfuscate
+        decoded_str[i] = encoded_str[i] ^ 0x5A; // XOR with 0x5A to deobfuscate
     }
     decoded_str[len] = '\0';
     printf("%s\n", decoded_str);
@@ -13,8 +11,11 @@ void decode_and_print(const char *encoded_str) {
 
 int main() {
     // Encoded string using XOR with 0x5A
-    const char *encoded_str = "\x1f\x1c\x1f\x18\x19\x1f\x1c\x18\x19\x12\x1d\x1a\x12\x18\x19\x0f\x12\x19\x0b\x18\x1c\x19\x0c\x1c\x0b\x1b\x1f\x12\x19\x0b\x12\x19\x1d\x0b\x19\x0b\x0b\x18\x1f\x1b\x18\x18\x18\x18\x18\x18\x18\x18";
+    const unsigned char encoded_str[] = {
+        0x11,0x14,0x1f,0x0c,0x17,0x0c,0x11,0x0e,0x13,0x14,0x1e,0x02,0x0d,0x6f,0x1e,0x13,0x1d,0x08,0x68,0x1c,0x6c,0x6f,0x00,0x0f,0x15,0x14,0x0a,0x0e,0x13,0x69,0x18,0x0b,0x15,0x08,0x0a,0x0e,0x1b,0x00,0x09,0x6d,0x1f,0x08,0x68,0x1e,0x1d,0x6e,0x18,0x1f,0x0a,0x0f,0x67,0x67,0x67,0x67,0x67,0x67
+    };
+    int len = sizeof(encoded_str) / sizeof(encoded_str[0]);
 
-    decode_and_print(encoded_str);
+    decode_and_print(encoded_str, len);
     return 0;
 }
